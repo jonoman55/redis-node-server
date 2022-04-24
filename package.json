@@ -1,0 +1,30 @@
+{
+  "name": "redis-node-app",
+  "version": "1.0.0",
+  "description": "Node/Express and Redis server for fetching GitHub users public repo count",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "redis",
+    "node",
+    "express",
+    "node-fetch",
+    "nodemon"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "morgan": "^1.10.0",
+    "node-fetch": "^3.2.3",
+    "redis": "^4.0.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
