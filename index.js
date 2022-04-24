@@ -1,9 +1,10 @@
 import express from 'express';
 import fetch from 'node-fetch';
-import redis from 'redis';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import redis from 'redis';
 
+// Load .env file
 dotenv.config({
     path: './sample.env'
 });
@@ -11,6 +12,7 @@ dotenv.config({
 const PORT = process.env.PORT || 5000;
 const REDIS_PORT = process.env.REDIS_PORT || 6379;
 
+// Create Redis client
 const client = redis.createClient({
     port: REDIS_PORT
 });
@@ -27,8 +29,10 @@ client.on('error', (err) =>
     console.log('<:: Redis Client Error', err)
 );
 
+// Initialize Express
 const app = express();
 
+// HTTP logging middleware
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
@@ -46,8 +50,8 @@ async function getRepos(req, res, next) {
         const response = await fetch(`https://api.github.com/users/${username}`);
         const data = await response.json();
         const repos = data?.public_repos;
-        await client.setEx(username, 3600, repos);
         // Set data to Redis
+        await client.setEx(username, 3600, repos);
         res.send(setResponse(username, repos));
     } catch (error) {
         console.log(error);
@@ -71,8 +75,10 @@ async function cache(req, res, next) {
     }
 }
 
+// Route w/ caching middleware
 app.get('/repos/:username', cache, getRepos);
 
+// Start Express server
 app.listen(PORT, () =>
     console.log(`Server is now running on port: ${PORT}`)
 );
