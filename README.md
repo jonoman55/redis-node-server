@@ -21,7 +21,14 @@ The server will reload if you make edits.<br />
 
 ### `npm start`
 
-Runs the app without nodemon.<br /><br />
+Runs the app without nodemon.
 
-Express server listens on [http://localhost:5000](http://localhost:5000)<br /><br />
+## Server Info
+
+Express server listens on [http://localhost:5000](http://localhost:5000)<br />
 Redis connects on [127.0.0.1:6379](127.0.0.1:6379])
+
+## Route Info
+
+GET /repos/:username<br />
+[http://localhost:5000/repos/jonoman55](http://localhost:5000/repos/jonoman55)
